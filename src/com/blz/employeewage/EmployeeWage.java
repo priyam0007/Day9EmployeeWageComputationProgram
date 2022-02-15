@@ -2,26 +2,33 @@ package com.blz.employeewage;
 
  public class EmployeeWage {
 	 public static void main(String[] args) {
-			Attendence attendence = new Attendence();
-			attendence.empCheck();
+			EmpCalculation emp = new EmpCalculation();
+			emp.empCheck();
+			DailyWage wage = new DailyWage();
+			wage.dailyWageCalculation();
 		}
-}
-class Attendence {
-		public static final int IS_PRESENT = 1;
-		public static final int IS_ABSENT = 0;
+	}
+	class EmpCalculation {
+		public static int empHrs;
 		public void empCheck() {
 			int empCheck = (int)Math.floor(Math.random() * 10) % 2;
-			switch(empCheck) {
-			case IS_PRESENT: 
+			if(empCheck == 1) {
 				System.out.println("Employee is present");
-				break;
-			case IS_ABSENT:
+				empHrs = 8;
+			}
+			else{
 				System.out.println("Employee is absent");
-				break;
-			default:
-				System.out.println("Welcome");
 			}
 		}
-}
+	}
+	class DailyWage{
+		public static final int WAGE_PER_HOUR = 20;
+		
+		public void dailyWageCalculation() {
+		int totalDailyWage = EmpCalculation.empHrs * WAGE_PER_HOUR;
+		System.out.println("Daily employee wage is "+totalDailyWage);
+		}
+	}
  
+	
 		
