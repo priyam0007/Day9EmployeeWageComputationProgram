@@ -1,60 +1,47 @@
 package com.blz.employeewage;
 
  public class EmployeeWage {
-	 public static int MAX_WORKING_DAYS = 20;
-		public static int MAX_HOURS = 100;
+	 public static final int IS_FULLTIME = 1;
+		public static final int IS_PARTTIME = 2;
+		public static int TOTAL_WAGE = 0;
 		public static void main(String[] args) {
-			int workingDays = 0;
-			while (workingDays < MAX_WORKING_DAYS  && EmpCalculation.totalHrs < MAX_HOURS) {
+
+				EmployeeWage emp = new EmployeeWage();
+				emp.empCheck("D-MART",20,2,10);
+				emp.empCheck("RELIANCE",10,4,20);
+				
+			}
+		
+		public void empCheck(String company, int empRatePerHour,int numOfWorkingDays,int maxHrsPerMonth) {
+		    int	workingDays = 0,empHrs = 0,totalHrs=0,totalDailyWage=0;
+			while (workingDays < numOfWorkingDays  && totalHrs < maxHrsPerMonth) {
 				workingDays++;
 				System.out.println("For DAY"+workingDays);
-				EmpCalculation emp = new EmpCalculation();
-				emp.empCheck();
-				DailyWage wage = new DailyWage();
-				wage.dailyWageCalculation();
-				wage.totalWage();
+				int empCheck = (int)Math.floor(Math.random() * 10) % 3;
+				switch(empCheck) {
+					case IS_FULLTIME:
+						System.out.println("Employee is present and worked full-time");
+						empHrs = 8;
+						break;
+					case IS_PARTTIME:
+						System.out.println("Employee is present and worked part-time");
+						empHrs = 4;
+						break;
+					default:
+						System.out.println("Employee is absent");
+						empHrs = 0;
+				}
+				totalDailyWage = empHrs * empRatePerHour;
+				System.out.println("Daily employee wage is "+totalDailyWage);
+				totalHrs = totalHrs + empHrs;
+				TOTAL_WAGE = TOTAL_WAGE + totalDailyWage;
 			}
-			System.out.println("Employee's total working Hours = "+EmpCalculation.totalHrs);
-			System.out.println("Total Wage of employee in a month = "+DailyWage.totalWage);
-		}
-	}
-	class EmpCalculation {
-		public static final int IS_FULLTIME = 1;
-		public static final int IS_PARTTIME = 2;
-		public static int empHrs;
-		public static int totalHrs = 0;
-		public void empCheck() {
-			int empCheck = (int)Math.floor(Math.random() * 10) % 3;
-			switch(empCheck) {
-			case IS_FULLTIME:
-				System.out.println("Employee is present and worked full-time");
-				empHrs = 8;
-				break;
-			case IS_PARTTIME:
-				System.out.println("Employee is present and worked part-time");
-				empHrs = 4;
-				break;
-				
-			default:
-				System.out.println("Employee is absent");
-				empHrs = 0;
-			}
-			totalHrs = totalHrs + empHrs;
-		}
-	}
-	class DailyWage{
-		public static final int WAGE_PER_HOUR = 20;
-		static int totalWage = 0;
-		int totalDailyWage;
-		public void dailyWageCalculation() {
-		totalDailyWage = EmpCalculation.empHrs * WAGE_PER_HOUR;
-		System.out.println("Daily employee wage is "+totalDailyWage);
-		}
-		public void totalWage() {
-			totalWage = totalWage + totalDailyWage; 
+		System.out.println("Total Wage of "+company+"'s employees in a month = "+TOTAL_WAGE);
+			
 		}
 		
 	}
  
+	 
 	
 	 
